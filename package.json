@@ -1,0 +1,32 @@
+{
+  "name": "storyline",
+  "version": "1.0.0",
+  "description": "A scenario runner for node apps",
+  "main": "bin/storyline.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha tests --reporter spec",
+    "test-dev": "./node_modules/.bin/mocha tests --reporter spec -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rtablada/storyline.git"
+  },
+  "keywords": [
+    "scenario",
+    "testing",
+    "seeds"
+  ],
+  "author": "Ryan Tablada",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rtablada/storyline/issues"
+  },
+  "homepage": "https://github.com/rtablada/storyline#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
+  },
+  "dependencies": {
+    "lodash": "^4.2.1"
+  }
+}
