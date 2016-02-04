@@ -11,10 +11,6 @@ const Storyline = require('../bin/storyline');
 const Plot = require('../bin/plot');
 
 class SimplePlot extends Plot {
-  get requirements() {
-    return ['foo', 'bar'];
-  }
-
   run(app) {
     app.spy();
   }
