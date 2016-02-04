@@ -23,6 +23,10 @@ module.exports = class Storyline {
   run(name) {
     const plot = this.getScenario(name);
 
+    plot.getRequirements().forEach((requirement) => {
+      this.run(requirement);
+    });
+
     plot.run(this.app);
   }
 };

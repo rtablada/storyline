@@ -16,16 +16,29 @@ class SimplePlot extends Plot {
   }
 }
 
+class RequirePlot extends Plot {
+  get requirements() {
+    return ['simple'];
+  }
+
+  run(app) {
+    app.spy2();
+  }
+}
+
 describe('Storyline', () => {
   let spy;
+  let spy2;
   let story;
 
   beforeEach(() => {
     spy = sinon.spy();
+    spy2 = sinon.spy();
 
     const appMock = {
       expect,
       spy,
+      spy2,
       obj: 'foo',
     };
 
@@ -49,6 +62,14 @@ describe('Storyline', () => {
     story.addScenario('simple', SimplePlot);
 
     story.run('simple');
-    expect(spy).to.have.been.calledWith();
+    expect(spy).to.have.been.called;
+  });
+
+  it('can run a scenario with some requirements', () => {
+    story.addScenario('simple', SimplePlot);
+    story.addScenario('double', RequirePlot);
+
+    story.run('double');
+    expect(spy, 'the run before double scenario').to.have.been.calledBefore(spy2);
   });
 });
