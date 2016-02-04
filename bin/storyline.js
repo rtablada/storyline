@@ -1,5 +1,7 @@
 'use strict';
 
+var resolve = Promise.resolve;
+
 module.exports = class Storyline {
   constructor(app) {
     app = app || {};
@@ -23,10 +25,14 @@ module.exports = class Storyline {
   run(name) {
     const plot = this.getScenario(name);
 
-    plot.getRequirements().forEach((requirement) => {
-      this.run(requirement);
-    });
+    if (plot.getRequirements().length === 0) {
+      return Promise.resolve(plot.run(this.app));
+    }
 
-    plot.run(this.app);
+    return Promise.all(plot.getRequirements().map((requirement) => {
+      return Promise.resolve(this.run(requirement));
+    })).then(() => {
+      return Promise.resolve(plot.run(this.app));
+    });
   }
 };

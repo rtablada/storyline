@@ -16,6 +16,17 @@ class SimplePlot extends Plot {
   }
 }
 
+class AsyncPlot extends Plot {
+  run(app) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        app.spy();
+        resolve();
+      });
+    });
+  }
+}
+
 class RequirePlot extends Plot {
   get requirements() {
     return ['simple'];
@@ -70,6 +81,19 @@ describe('Storyline', () => {
     story.addScenario('double', RequirePlot);
 
     story.run('double');
-    expect(spy, 'the run before double scenario').to.have.been.calledBefore(spy2);
+    expect(spy, 'a sync requirement should run first').to.have.been.calledBefore(spy2);
+  });
+
+  it('can run a scenario with async requirements', (done) => {
+    story.addScenario('simple', AsyncPlot);
+    story.addScenario('double', RequirePlot);
+
+    story.run('double').then(() => {
+      expect(spy, 'a plot should await an async requirement').to.have.been.called;
+
+      expect(spy, 'a plot should await an async requirement').to.have.been.calledBefore(spy2);
+
+      done();
+    });
   });
 });
