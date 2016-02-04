@@ -72,7 +72,7 @@ Then to run a registered plot, we will use the `run` method on our Storyline and
 
 ```js
 const Storyline = require('storyline');
-const Plot = require('storyline/plot');
+const Plot = require('storyline/bin/plot');
 const pg = require('knex')({
   client: 'pg',
   connection: process.env.PG_CONNECTION_STRING,
@@ -102,12 +102,8 @@ We need to use the `requirements` option to specify that we must be sure that `C
 
 ```js
 const Storyline = require('storyline');
-const Plot = require('storyline/plot');
-const pg = require('knex')({
-  client: 'pg',
-  connection: process.env.PG_CONNECTION_STRING,
-  searchPath: 'knex,public',
-});
+const Plot = require('storyline/bin/plot');
+const pg = require('knex')(require('./knexfile').development);
 
 const app = {db: pg};
 
@@ -126,7 +122,7 @@ class CreateAliases extends Plot {
     return app.db('users').where(
       {first_name: 'Tony', last_name: 'Stark'}
     ).select('id').then((users) => {
-      const user_id = users[0];
+      const user_id = users[0].id;
 
       return app.db('aliases').insert({user_id, name: 'Iron Man'});
     });
@@ -135,5 +131,5 @@ class CreateAliases extends Plot {
 
 story.addPlot('create-users', CreateUsers);
 story.addPlot('create-aliases', CreateAliases);
-story.run('create-aliases');
+story.run('create-aliases').then(pg.destroy);
 ```
