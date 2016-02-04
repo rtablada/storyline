@@ -1,5 +1,7 @@
 # Storyline.js
 
+[![Build Status](https://travis-ci.org/rtablada/storyline.svg?branch=master)](https://travis-ci.org/rtablada/storyline)
+
 Storyline is a scenario runner for Node JS projects.
 The goal is to help with cascading requirements for QA, Testing, and Demo purposes.
 
