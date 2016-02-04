@@ -57,36 +57,36 @@ describe('Storyline', () => {
   });
 
   it('can add a scenario', () => {
-    story.addScenario('simple', SimplePlot);
+    story.addPlot('simple', SimplePlot);
 
     expect(story.scenarios.simple).to.equal(SimplePlot);
   });
 
   it('can instantiate a scenario', () => {
-    story.addScenario('simple', SimplePlot);
-    const scenario = story.getScenario('simple');
+    story.addPlot('simple', SimplePlot);
+    const scenario = story.getPlot('simple');
 
     expect(scenario).to.be.instanceOf(SimplePlot);
   });
 
   it('can run a scenario with no requirements', () => {
-    story.addScenario('simple', SimplePlot);
+    story.addPlot('simple', SimplePlot);
 
     story.run('simple');
     expect(spy).to.have.been.called;
   });
 
   it('can run a scenario with some requirements', () => {
-    story.addScenario('simple', SimplePlot);
-    story.addScenario('double', RequirePlot);
+    story.addPlot('simple', SimplePlot);
+    story.addPlot('double', RequirePlot);
 
     story.run('double');
     expect(spy, 'a sync requirement should run first').to.have.been.calledBefore(spy2);
   });
 
   it('can run a scenario with async requirements', (done) => {
-    story.addScenario('simple', AsyncPlot);
-    story.addScenario('double', RequirePlot);
+    story.addPlot('simple', AsyncPlot);
+    story.addPlot('double', RequirePlot);
 
     story.run('double').then(() => {
       expect(spy, 'a plot should await an async requirement').to.have.been.called;

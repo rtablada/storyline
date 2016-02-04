@@ -10,11 +10,11 @@ module.exports = class Storyline {
     this.scenarios = {};
   }
 
-  addScenario(name, plot) {
+  addPlot(name, plot) {
     this.scenarios[name] = plot;
   }
 
-  getScenario(name) {
+  getPlot(name) {
     const Plot = this.scenarios[name];
 
     if (Plot) {
@@ -23,7 +23,7 @@ module.exports = class Storyline {
   }
 
   run(name) {
-    const plot = this.getScenario(name);
+    const plot = this.getPlot(name);
 
     if (plot.getRequirements().length === 0) {
       return Promise.resolve(plot.run(this.app));

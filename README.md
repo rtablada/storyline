@@ -67,7 +67,7 @@ class CreateUsers extends Plot {
 ## Registering Plots With Storyline
 
 Now that we have our `CreateUsers` Plot, we need to register it with our Storyline instance.
-Here we will use the `addScenario` function to register our `create-users` plot to be run.
+Here we will use the `addPlot` function to register our `create-users` plot to be run.
 Then to run a registered plot, we will use the `run` method on our Storyline and pass in the plot name that we want to run.
 
 ```js
@@ -91,7 +91,7 @@ class CreateUsers extends Plot {
   }
 }
 
-story.addScenario('create-users', CreateUsers);
+story.addPlot('create-users', CreateUsers);
 story.run('create-users');
 ```
 
@@ -133,7 +133,7 @@ class CreateAliases extends Plot {
   }
 }
 
-story.addScenario('create-users', CreateUsers);
-story.addScenario('create-aliases', CreateAliases);
+story.addPlot('create-users', CreateUsers);
+story.addPlot('create-aliases', CreateAliases);
 story.run('create-aliases');
 ```
