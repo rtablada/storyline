@@ -1,6 +1,6 @@
 {
   "name": "storyline",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A scenario runner for node apps",
   "main": "bin/storyline.js",
   "scripts": {
